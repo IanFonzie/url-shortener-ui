@@ -28,3 +28,28 @@
   border: 1px solid black;
   border-radius: 16px;
 }
+
+.context {
+  max-width: 800px;
+  margin: 50px auto auto;
+}
+
+.context h2 {
+  text-align: center;
+}
+
+.gallery {
+  display: flex;
+  justify-content: space-around;
+}
+
+.gallery-item {
+  width: 200px;
+  height: auto;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
