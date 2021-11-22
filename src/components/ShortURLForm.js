@@ -1,44 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class ShortURLForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
+const ShortURLForm = props => {
+  const [value, setValue] = useState('')
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  const handleChange = event => {
+    setValue(event.target.value)
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    props.handleSubmit(value)
+    setValue('')
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    this.props.handleSubmit(this.state);
-    this.setState({
-      value: '',
-    });
-  }
-
-  render() {
-    return (
-      <form className="shorten-form" onSubmit={this.handleSubmit}>
-        <h1>Enter a URL to shorten:</h1>
-        <label htmlFor="url">URL</label>
-        <input 
-          id="url"
-          type="text" 
-          onChange={this.handleChange}
-          value={this.state.value}
-        />
-        <input type="submit" />
-      </form>
-    );
-  }
+  return (
+    <form className="shorten-form" onSubmit={handleSubmit}>
+      <h1>Enter a URL to shorten:</h1>
+      <label htmlFor="url">URL</label>
+      <input 
+        id="url"
+        type="text" 
+        onChange={handleChange}
+        value={value}
+      />
+      <input type="submit" />
+    </form>
+  )
 }
 
 export default ShortURLForm;

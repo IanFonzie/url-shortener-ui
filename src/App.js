@@ -42,7 +42,7 @@ const App = () => {
     .then(resized => setResizedImages(resized))
   }, [])
 
-  const shortenURL = ({value: longURL}) => {
+  const shortenURL = (longURL) => {
     // Do some shortening
     setShortURL(longURL)
   }
