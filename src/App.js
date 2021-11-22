@@ -10,6 +10,7 @@ import analyticsJPG from './images/analytics.jpg'
 import securityJPG from './images/security.jpg'
 import sharingJPG from './images/sharing.jpg'
 
+import URLShortener from './services/URLShortener'
 import imageResizer from './services/imageResizer'
 
 const App = () => {
@@ -76,10 +77,20 @@ const App = () => {
       setError(error)
       return  // Do not call API.
     }
+
+    URLShortener.create(longURL)
+      .then(result => {
+        if (result.type) {
+          setError(result)
+        } else {
+          setShortURL(result.short_url)
+          setError({})
+        }
+      })
+
   
     // make request
-    setShortURL(longURL)
-    setError({})
+    
   }
 
   let toDisplay;
