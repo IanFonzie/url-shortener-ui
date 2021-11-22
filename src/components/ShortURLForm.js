@@ -24,6 +24,12 @@ const ShortURLForm = props => {
         onChange={handleChange}
         value={value}
       />
+      {props.error.type === 'required' && (
+        <div className="error">Please enter an HTTP or HTTPS URL.</div>
+      )}
+      {props.error.type === 'invalid' && (
+        <div className="error">Please enter a valid HTTP or HTTPS URL.</div>
+      )}
       <input type="submit" />
     </form>
   )

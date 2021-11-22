@@ -9,11 +9,13 @@ import analytics from './images/analytics.png'
 import analyticsJPG from './images/analytics.jpg'
 import securityJPG from './images/security.jpg'
 import sharingJPG from './images/sharing.jpg'
+
 import imageResizer from './services/imageResizer'
 
 const App = () => {
   const [shortURL, setShortURL] = useState('')
   const [resizedImages, setResizedImages] = useState(['', '', ''])
+  const [error, setError] = useState({})
 
   const resizeImage = img => {
     return fetch(img)
@@ -42,15 +44,49 @@ const App = () => {
     .then(resized => setResizedImages(resized))
   }, [])
 
-  const shortenURL = (longURL) => {
-    // Do some shortening
+  const validateURL = longURL => {
+    let validURL
+
+    // Long URL is not present.
+    if (!longURL) {
+      return {type: 'required'}
+    }
+
+    // Long URL is not valid.
+    try {
+      validURL = new URL(longURL);
+    } catch (err) {
+      return {type: 'invalid'}
+    }
+
+    // Long URL has incorrect protocol.
+    if (!(['http:', 'https:'].includes(validURL.protocol))) {
+      return {type: 'invalid'}
+    }
+  }
+
+  const shortenURL = longURL => {
+    // Append HTTP protocol by default if no protocol provided.
+    if (!longURL.startsWith('http')) {
+      longURL = `http://` + longURL
+    }
+
+    const error = validateURL(longURL)
+    if (error) {
+      setError(error)
+      return  // Do not call API.
+    }
+  
+    // make request
     setShortURL(longURL)
+    setError({})
   }
 
   let toDisplay;
   if (!shortURL) {
     toDisplay = (
       <ShortURLForm 
+        error={error}
         handleSubmit={longURL => shortenURL(longURL)}
       />  
     )
