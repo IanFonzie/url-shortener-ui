@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import ShortURLForm from './components/ShortURLForm'
+import ShortURLOutput from './components/ShortURLOutput'
+
 import security from './images/security.png'
 import sharing from './images/sharing.png'
 import analytics from './images/analytics.png'
@@ -15,6 +17,7 @@ import imageResizer from './services/imageResizer'
 
 const App = () => {
   const [shortURL, setShortURL] = useState('')
+  const [longURL, setLongURL] = useState('')
   const [resizedImages, setResizedImages] = useState(['', '', ''])
   const [error, setError] = useState({})
 
@@ -67,11 +70,6 @@ const App = () => {
   }
 
   const shortenURL = longURL => {
-    // Append HTTP protocol by default if no protocol provided.
-    if (!longURL.startsWith('http')) {
-      longURL = `http://` + longURL
-    }
-
     const error = validateURL(longURL)
     if (error) {
       setError(error)
@@ -84,13 +82,10 @@ const App = () => {
           setError(result)
         } else {
           setShortURL(result.short_url)
+          setLongURL(longURL)
           setError({})
         }
       })
-
-  
-    // make request
-    
   }
 
   let toDisplay;
@@ -103,9 +98,10 @@ const App = () => {
     )
   } else {
     toDisplay = (
-      <div id="output">
-        Use your imagination to pretend {shortURL} was shortened.
-      </div>
+      <ShortURLOutput
+        shortURL={shortURL}
+        longURL={longURL}
+      />
     )
   }
 
