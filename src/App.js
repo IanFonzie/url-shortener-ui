@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Skeleton from "react-loading-skeleton"
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
 import "./App.css"
 import "react-loading-skeleton/dist/skeleton.css"
@@ -53,6 +52,11 @@ const App = () => {
       })
   }
 
+  const handleReset = () => {
+    setShortURL("")
+    setLongURL("")
+  }
+
   const showURLForm = !shortURL
 
   return (
@@ -67,6 +71,13 @@ const App = () => {
           )}
         </Col>
       </Row>
+      {!showURLForm && (
+        <Row className="justify-content-center my-4">
+          <Col xs={4}>
+            <Button onClick={handleReset}>Start Over?</Button>
+          </Col>
+        </Row>
+      )}
       <h2 className="text-center my-4">Benefits of URL Shortening</h2>
       <Row className="context justify-content-xs-around text-center">
         <ContextItem 

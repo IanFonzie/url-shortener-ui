@@ -9,9 +9,9 @@ const create = url => {
     .then(response => response.data)
     .catch(err => {
       const status = err.response && err.response.status;
-      if (status > 500) {
+      if (status >= 500) {
         throw SERVER_ERROR;
-      } else if (status > 400) {
+      } else if (status >= 400) {
         throw INVALID_ERROR;
       } else {
         throw NETWORK_ERROR;
