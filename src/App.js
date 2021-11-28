@@ -9,10 +9,6 @@ import ShortURLForm from "./components/ShortURLForm"
 import ShortURLOutput from "./components/ShortURLOutput"
 import ContextItem from "./components/ContextItem"
 
-import security from "./images/security.png"
-import sharing from "./images/sharing.png"
-import analytics from "./images/analytics.png"
-
 import analyticsJPG from "./images/analytics.jpg"
 import securityJPG from "./images/security.jpg"
 import sharingJPG from "./images/sharing.jpg"
