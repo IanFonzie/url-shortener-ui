@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 
-const ShortURLForm = props => {
+const ShortURLForm = ({handleSubmit, error}) => {
   const [value, setValue] = useState('')
 
   const handleChange = event => {
     setValue(event.target.value)
   }
 
-  const handleSubmit = event => {
+  const _handleSubmit = event => {
     event.preventDefault()
 
-    props.handleSubmit(value)
+    handleSubmit(value)
     setValue('')
   }
 
   return (
-    <form className="shorten-form" onSubmit={handleSubmit}>
+    <form className="shorten-form" onSubmit={_handleSubmit}>
       <h1>Enter a URL to shorten:</h1>
       <label htmlFor="url">URL</label>
       <input 
@@ -24,21 +24,24 @@ const ShortURLForm = props => {
         onChange={handleChange}
         value={value}
       />
-      <input type="submit" />
-      {props.error.type === 'required' && (
-        <div className="error">Please enter an HTTP or HTTPS URL.</div>
-      )}
-      {props.error.type === 'invalid' && (
-        <div className="error">Please enter a valid HTTP or HTTPS URL.</div>
-      )}
-      {props.error.type === 'server_error' && (
-        <div className="error">Something went wrong. Please try again.</div>
-      )}
-      {props.error.type === 'network' && (
-        <div className="error">There was a network error.</div>
+      <button type="submit">Shorten URL</button>
+      {error && (
+        <div className="error">{parseError(error)}</div>
       )}
     </form>
   )
+}
+
+function parseError({type}) {
+  if (type === 'required') {
+    return 'Please enter an HTTP or HTTPS URL.'
+  } else if (type === 'invalid') {
+    return 'Please enter a valid HTTP or HTTPS URL.'
+  } else if (type === 'server_error') {
+    return 'Something went wrong. Please try again.'
+  } else if (type === 'network') {
+    return 'There was a network error.'
+  }
 }
 
 export default ShortURLForm;

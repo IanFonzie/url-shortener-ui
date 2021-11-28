@@ -2,10 +2,11 @@ import axios from 'axios'
 
 const baseURL = 'http://127.0.0.1:5000/resize'
 
-const resize = b64img => {
+const resize = img => {
+  console.log(img)
   return axios
     .post(baseURL, {
-      img: b64img,
+      img,
       width: 200
     })
     .then(response => response.data.base64)
