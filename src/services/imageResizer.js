@@ -6,7 +6,7 @@ const resize = b64img => {
   return axios
     .post(baseURL, {
       img: b64img,
-      width: 128
+      width: 200
     })
     .then(response => response.data.base64)
 }

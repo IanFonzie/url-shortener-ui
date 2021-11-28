@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
-import './App.css';
+import './App.css'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 import ShortURLForm from './components/ShortURLForm'
 import ShortURLOutput from './components/ShortURLOutput'
 
@@ -18,7 +21,7 @@ import imageResizer from './services/imageResizer'
 const App = () => {
   const [shortURL, setShortURL] = useState('')
   const [longURL, setLongURL] = useState('')
-  const [resizedImages, setResizedImages] = useState(['', '', ''])
+  const [resizedImages, setResizedImages] = useState(null)
   const [error, setError] = useState({})
 
   const resizeImage = img => {
@@ -45,7 +48,9 @@ const App = () => {
       resizeImage(securityJPG),
       resizeImage(analyticsJPG)
     ])
-    .then(resized => setResizedImages(resized))
+    .then(([share, secure, analytic]) => {
+      setResizedImages({share, secure, analytic})
+    })
   }, [])
 
   const validateURL = longURL => {
@@ -114,15 +119,24 @@ const App = () => {
         <h2>Benefits of URL Shortening</h2>
         <div className="gallery">
           <div className="gallery-item">
-            <img src={resizedImages[0]} alt="Share Icon" />
+            {resizedImages ? 
+              <img src={resizedImages.share} alt="Share Icon" /> :
+              <Skeleton className='loading-img'/>
+            }
             <h2>Easy to remember!</h2>
           </div>
           <div className="gallery-item">
-            <img src={resizedImages[1]} alt="Padlock Icon" />
+            {resizedImages ? 
+              <img src={resizedImages.secure} alt="Padlock Icon" /> :
+              <Skeleton className='loading-img'/>
+            }
             <h2>Secure!</h2>
           </div>
           <div className="gallery-item">
-            <img src={resizedImages[2]} alt="Research Icon" />
+            {resizedImages ? 
+              <img src={resizedImages.analytic} alt="Research Icon" /> :
+              <Skeleton className='loading-img'/>
+            }
             <h2>Track visitor stats!</h2>
           </div>
         </div>
