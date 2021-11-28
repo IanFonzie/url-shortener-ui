@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react"
 import Skeleton from "react-loading-skeleton"
+import { Container, Row, Col } from 'react-bootstrap'
 
 import "./App.css"
 import "react-loading-skeleton/dist/skeleton.css"
 
 import ShortURLForm from "./components/ShortURLForm"
 import ShortURLOutput from "./components/ShortURLOutput"
+import ContextItem from "./components/ContextItem"
 
 import security from "./images/security.png"
 import sharing from "./images/sharing.png"
@@ -58,44 +60,42 @@ const App = () => {
   const showURLForm = !shortURL
 
   return (
-    <div className="App">
-      <div className="action-box">
-        {showURLForm ? (
-          <ShortURLForm error={error} handleSubmit={shortenURL} />
-        ) : (
-          <ShortURLOutput shortURL={shortURL} longURL={longURL} />
-        )}
-      </div>
-      <section className="context">
-        <h2>Benefits of URL Shortening</h2>
-        <div className="gallery">
-          <div className="gallery-item">
-            {resizedImages ? (
-              <img src={resizedImages.share} alt="Share Icon" />
-            ) : (
-              <Skeleton className="loading-img" />
-            )}
-            <h2>Easy to remember!</h2>
-          </div>
-          <div className="gallery-item">
-            {resizedImages ? (
-              <img src={resizedImages.secure} alt="Padlock Icon" />
-            ) : (
-              <Skeleton className="loading-img" />
-            )}
-            <h2>Secure!</h2>
-          </div>
-          <div className="gallery-item">
-            {resizedImages ? (
-              <img src={resizedImages.analytic} alt="Research Icon" />
-            ) : (
-              <Skeleton className="loading-img" />
-            )}
-            <h2>Track visitor stats!</h2>
-          </div>
-        </div>
-      </section>
-    </div>
+    <Container>
+      <h1 className="text-center my-4">URL Shortener</h1>
+      <Row className="action-box border border-dark mx-1">
+        <Col xs={12}>
+          {showURLForm ? (
+            <ShortURLForm error={error} handleSubmit={shortenURL} />
+          ) : (
+            <ShortURLOutput shortURL={shortURL} longURL={longURL} />
+          )}
+        </Col>
+      </Row>
+      <h2 className="text-center my-4">Benefits of URL Shortening</h2>
+      <Row className="context justify-content-xs-around text-center">
+        <ContextItem 
+          resizedImages={resizedImages}
+          srcLabel={'share'}
+          alt={'Share Icon'}
+          heading={'Easy to remember!'}
+          blurb={"Some URLs can contain a variety of verbose information needed to identify a resource. Sharing these can be a pain, but shortenl.ink is here to help. So next time, instead of memorizing, typing out, or speaking a long URL, pass it to us, and we'll provide you with a short, shareable version instead."}
+        />
+        <ContextItem 
+          resizedImages={resizedImages}
+          srcLabel={'secure'}
+          alt={'Padlock Icon'}
+          heading={'Secure!'}
+          blurb={"We use HTTPS and TLS to ensure the safe and secure creation of your short URLs. The links are created from a randomly encoded value and will be nearly impossible to guess by chance."}
+        />
+        <ContextItem 
+          resizedImages={resizedImages}
+          srcLabel={'analytic'}
+          alt={'Research Icon'}
+          heading={'Track visitor stats!'}
+          blurb={"Coming soon, the ability to track how many times a short URL was visited, with aggregate and detailed information about total clicks, top referral sources, and the locations of your URL's visitors. Stay tuned for more details!"}
+        />
+      </Row>
+    </Container>
   )
 }
 

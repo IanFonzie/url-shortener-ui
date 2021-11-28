@@ -1,17 +1,25 @@
+import { Row, Col, Button } from 'react-bootstrap'
+
 const ShortURLOutput = ({shortURL, longURL}) => {
   return (
-    <div id="output">
-      <h1>Shortened URL</h1>
-      <span className="short-url">{shortURL}</span>
-      <button onClick={copyToClipboard}>Copy to Clipboard</button>
-      <h2>URL Information</h2>
+    <div className="p-4">
+      <h2>Shortened URL</h2>
+      <Row className="justify-content-sm-between">
+        <Col className="mb-2" xs="auto">
+          <span id="short-url">{shortURL}</span>
+        </Col>
+        <Col className="mb-2" xs={12} sm={4}>
+          <Button onClick={copyToClipboard}>Copy to Clipboard</Button>
+        </Col>
+      </Row>
+      <h3>URL Information</h3>
       <p>Original: {longURL}</p>
     </div>
   )
 }
 
 const copyToClipboard = () => {
-  const shortURL = document.getElementsByClassName('short-url')[0].textContent
+  const shortURL = document.getElementById('short-url').textContent
   navigator.clipboard.writeText(shortURL)
 }
 

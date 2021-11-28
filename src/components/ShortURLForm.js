@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { Form, Row, Col, Button } from 'react-bootstrap'
 
 const ShortURLForm = ({handleSubmit, error}) => {
   const [value, setValue] = useState('')
@@ -15,20 +16,34 @@ const ShortURLForm = ({handleSubmit, error}) => {
   }
 
   return (
-    <form className="shorten-form" onSubmit={_handleSubmit}>
-      <h1>Enter a URL to shorten:</h1>
-      <label htmlFor="url">URL</label>
-      <input 
-        id="url"
-        type="text" 
-        onChange={handleChange}
-        value={value}
-      />
-      <button type="submit">Shorten URL</button>
-      {error && (
-        <div className="error">{parseError(error)}</div>
-      )}
-    </form>
+    <Form className="shorten-form p-4" onSubmit={_handleSubmit}>
+      <h2>Enter a URL to shorten:</h2>
+      <Row>
+        <Col sm={2}>
+          <Form.Label htmlFor="url">URL</Form.Label>
+        </Col>
+      </Row>
+      <Row>
+        {error && (
+          <Col xs={12}>
+            <Form.Text className="text-danger">
+              {parseError(error)}
+            </Form.Text>
+          </Col>
+        )}
+        <Col className="mb-2" sm={9} xs={12}>
+          <Form.Control
+            id="url"
+            type="text" 
+            onChange={handleChange}
+            value={value}
+          />
+        </Col>
+        <Col className="mb-2" sm={3} xs={12}>
+          <Button type="submit">Submit</Button>
+        </Col>
+      </Row>
+    </Form>
   )
 }
 

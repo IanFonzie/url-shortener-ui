@@ -1,4 +1,4 @@
-.action-box {
+/* .action-box {
   max-width: 800px;
   margin: 50px auto auto;
   border: 1px solid black;
@@ -72,8 +72,12 @@
 
 img {
   max-width: 100%;
-}
+} */
 
 .loading-img {
   height: 200px
+}
+
+.action-box button {
+  width: 100%;
 }
