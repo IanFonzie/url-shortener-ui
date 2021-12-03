@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const baseURL = 'http://127.0.0.1:5000/resize'
+const baseURL = 'https://image-resizer-microservice.herokuapp.com'
 
 const resize = img => {
   return axios
-    .post(baseURL, {
+    .post(`${baseURL}/resize`, {
       img,
       width: 200
     })

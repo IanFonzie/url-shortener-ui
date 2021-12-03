@@ -73,8 +73,8 @@ const App = () => {
       </Row>
       {!showURLForm && (
         <Row className="justify-content-center my-4">
-          <Col xs={4}>
-            <Button onClick={handleReset}>Start Over?</Button>
+          <Col xs={12} md={4}>
+            <Button onClick={handleReset}>Start Over</Button>
           </Col>
         </Row>
       )}
@@ -85,21 +85,28 @@ const App = () => {
           srcLabel={'share'}
           alt={'Share Icon'}
           heading={'Easy to remember!'}
-          blurb={"Some URLs can contain a variety of verbose information needed to identify a resource. Sharing these can be a pain, but shortenl.ink is here to help. So next time, instead of memorizing, typing out, or speaking a long URL, pass it to us, and we'll provide you with a short, shareable version instead."}
+          blurb={"Some URLs can contain a variety of verbose information needed to identify a " +
+                 "resource. Sharing these can be a pain, but shortenl.ink is here to help. So " +
+                 "next time, instead of memorizing, typing out, or speaking a long URL, pass " +
+                 "it to us, and we'll provide you with a short, shareable version instead."}
         />
         <ContextItem 
           resizedImages={resizedImages}
           srcLabel={'secure'}
           alt={'Padlock Icon'}
           heading={'Secure!'}
-          blurb={"We use HTTPS and TLS to ensure the safe and secure creation of your short URLs. The links are created from a randomly encoded value and will be nearly impossible to guess by chance."}
+          blurb={"We use HTTPS and TLS to ensure the safe and secure creation of your short " +
+                 "URLs. The links are created from a randomly encoded value and will be nearly " +
+                 "impossible to guess by chance."}
         />
         <ContextItem 
           resizedImages={resizedImages}
           srcLabel={'analytic'}
           alt={'Research Icon'}
           heading={'Track visitor stats!'}
-          blurb={"Coming soon, the ability to track how many times a short URL was visited, with aggregate and detailed information about total clicks, top referral sources, and the locations of your URL's visitors. Stay tuned for more details!"}
+          blurb={"Coming soon, the ability to track how many times a short URL was visited, " +
+                 "with aggregate and detailed information about total clicks, top referral " +
+                 "sources, and the locations of your URL's visitors. Stay tuned for more details!"}
         />
       </Row>
     </Container>

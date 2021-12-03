@@ -12,7 +12,6 @@ const ShortURLForm = ({handleSubmit, error}) => {
     event.preventDefault()
 
     handleSubmit(value)
-    setValue('')
   }
 
   return (
